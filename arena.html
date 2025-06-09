@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AskAva AI Copilot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="arena.webp" href="arena.webp" />
+  <style>
+    :root {
+      --text-primary: #1a1a1a;
+      --accent-neon: #ce600c;
+      --accent-secondary: #ffa726;
+      --card-bg: rgba(235, 112, 12, 0.8);
+      --shadow-neon: 0 0 15px rgba(252, 119, 18, 0.4);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('Screenshot 2025-06-09 001610.png') center/cover no-repeat fixed;
+      color: var(--text-primary);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .neumorphic {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .neumorphic:hover {
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.3), var(--shadow-neon);
+    }
+
+    .glow-btn {
+      background: linear-gradient(45deg, var(--accent-neon), var(--accent-secondary));
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-neon);
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: var(--card-bg);
+      padding: 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 50;
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+
+    .accordion-header {
+      cursor: pointer;
+      padding: 16px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-content.active {
+      max-height: 200px;
+      padding: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold" style="color: var(--accent-neon)">AskAva</h2>
+      <span class="hamburger" id="closeSidebar">✖</span>
+    </div>
+    <nav class="flex flex-col gap-4 text-lg">
+      <a href="#hero" class="hover:text-black transition-colors">Home</a>
+      <a href="#features" class="hover:text-black transition-colors">Features</a>
+      <a href="#chat" class="hover:text-black transition-colors">Chat</a>
+      <a href="#contact" class="hover:text-black transition-colors">Contact</a>
+      <a target="_blank" href="http://x.com/AskAVA_Ai?t=eDJW784Hwpsv0jLC2sUQGA&s=09">Twitter</a>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <header class="py-6 sticky top-0 z-50" style="background: var(--card-bg)">
+    <div class="container flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="hamburger" id="openSidebar">☰</span>
+        <img src="arena.jpg" alt="Arena AI Logo" class="w-10 h-10 rounded-full border-2"
+          style="border-color: var(--accent-neon)">
+        <h1 class="text-2xl font-bold" style="color: var(--accent-neon)">AskAva</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero, Features, Chat, Contact, Footer -->
+  <main>
+    <section id="hero" class="py-20 text-center fade-in">
+      <div class="container">
+        <img src="arena.jpg" alt="Arena AI Bot" class="mx-auto w-36 h-36 rounded-full shadow-lg mb-6 border-4"
+          style="border-color: var(--accent-secondary)">
+        <h2 class="text-4xl font-bold mb-4" style="color: var(--accent-neon)">Explore Arena with AskAva</h2>
+        <p class="text-lg max-w-2xl mx-auto mb-8">Get instant answers about Arena’s trading battles, leaderboards, and
+          more.</p>
+        <a href="#chat" class="glow-btn">Start Chatting</a>
+      </div>
+    </section>
+
+    <section id="features" class="py-20 fade-in">
+      <div class="container">
+        <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--accent-secondary)">🚀 Features</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="neumorphic p-8 text-center">
+            <h3 class="text-xl font-semibold mb-3">📊 Real‑Time Insights</h3>
+            <p>Access up‑to‑date info on Arena’s features and trading metrics.</p>
+          </div>
+          <div class="neumorphic p-8 text-center">
+            <h3 class="text-xl font-semibold mb-3">🎯 Trader‑Centric</h3>
+            <p>Built to empower traders, from novices to leaderboard pros.</p>
+          </div>
+          <div class="neumorphic p-8 text-center">
+            <h3 class="text-xl font-semibold mb-3">⚡Instant Answers</h3>
+            <p>No login needed—just ask and get quick, reliable responses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chat" class="py-20 fade-in">
+      <div class="container">
+        <h2 class="text-3xl font-bold text-center mb-8" style="color: var(--accent-neon)">💬 Chat with AskAva</h2>
+        <div class="neumorphic p-8 max-w-3xl mx-auto">
+          <div id="chat-box" class="h-80 overflow-y-auto space-y-4 p-6 rounded-lg bg-white mb-6"></div>
+          <div class="flex gap-3">
+            <input id="userInput" type="text" placeholder="Ask a question…"
+              class="flex-grow px-5 py-3 rounded-lg border border-var(--accent-neon)" aria-label="AskAva">
+            <button onclick="handleUserInput()" class="glow-btn">Ask</button>
+          </div>
+          <div id="faq" class="mt-8 space-y-4">
+            <h3 class="text-xl font-semibold" style="color: var(--accent-secondary)">FAQs</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-20 fade-in">
+      <div class="container text-center">
+        <h2 class="text-4xl font-bold mb-6" style="color: var(--accent-neon)">📩 Contact Us</h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">Have feedback or ideas for AskAva? Let’s connect!</p>
+        <form class="neumorphic p-8 max-w-2xl mx-auto space-y-5">
+          <input type="text" placeholder="Your Name"
+            class="w-full px-5 py-3 rounded-lg border border-var(--accent-neon)">
+          <input type="email" placeholder="Your Email"
+            class="w-full px-5 py-3 rounded-lg border border-var(--accent-neon)">
+          <textarea placeholder="Your Message"
+            class="w-full px-5 py-3 rounded-lg border border-var(--accent-neon) h-36"></textarea>
+          <button type="submit" class="glow-btn">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 text-center text-sm" style="background: var(--card-bg)">
+    <p>© 2025 AskAva AI. Powered by the Arena community.</p>
+  </footer>
+
+  <script>
+    // Fade-in animations
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    document.getElementById('openSidebar').addEventListener('click', () => {
+      sidebar.classList.add('active');
+    });
+    document.getElementById('closeSidebar').addEventListener('click', () => {
+      sidebar.classList.remove('active');
+    });
+
+    // Q&A data
+    const qaData = {
+      "What is Arena?": "Arena is a social crypto platform where traders compete, rank, and earn based on on-chain performance.",
+      "What is Arena?": "Arena is a social crypto platform where traders compete, rank, and earn based on onchain trading performance.",
+      "Is Arena decentralized?": "Yes. Arena runs on Base and uses smart contracts for transparency, rewards, and fair ranking.",
+      "What chain is Arena built on?": "Arena is built on the Base network, offering low fees and fast transactions.",
+      "What is the Arena leaderboard?": "It's a real-time leaderboard ranking traders based on profit, win rate, and other performance metrics.",
+      "How do I join Arena?": "Just connect your wallet at https://arena.social — no signup needed.",
+      "Can I earn rewards on Arena?": "Yes, top traders earn crypto rewards based on leaderboard performance and trading activity.",
+      "What is $ARENA token?": "$ARENA is the utility and reward token for the platform, used for governance and possibly future features.",
+      "What are trading battles?": "Arena features trading battles where users compete based on actual onchain trades.",
+      "Does Arena support copy trading?": "Not officially yet, but you can view all traders' stats and past trades.",
+      "Can I see other traders’ performance?": "Yes, Arena is fully transparent. You can explore any trader's performance and history.",
+      "Do I need KYC?": "No, Arena is permissionless. Just connect your wallet and start.",
+      "Does Arena charge fees?": "No additional fees from Arena. You only pay normal DEX or network fees.",
+      "Where can I learn more?": "Check docs.arena.social or follow @arena__social on X/Twitter."
+      // ... etc.
+    };
+    const chatBox = document.getElementById('chat-box'),
+      faqContainer = document.getElementById('faq');
+    Object.entries(qaData).forEach(([q, a]) => {
+      const item = document.createElement('div');
+      item.className = 'neumorphic';
+      item.innerHTML = `<div class="accordion-header">🤔 ${q}</div><div class="accordion-content"><p>${a}</p></div>`;
+      faqContainer.appendChild(item);
+      const [header, content] = [item.firstElementChild, item.lastElementChild];
+      header.onclick = () => {
+        content.classList.toggle('active');
+        const um = document.createElement('div'), bm = document.createElement('div');
+        um.className = 'neumorphic p-3 rounded-lg text-right'; um.textContent = 'You: ' + q;
+        bm.className = 'neumorphic p-3 rounded-lg'; bm.textContent = 'Ava: ' + a;
+        chatBox.append(um, bm);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      };
+    });
+
+    function handleUserInput() {
+      const inp = document.getElementById('userInput'), q = inp.value.trim();
+      if (!q) return;
+      const um = document.createElement('div'), bm = document.createElement('div');
+      um.className = 'neumorphic p-3 rounded-lg text-right'; um.textContent = 'You: ' + q;
+      bm.className = 'neumorphic p-3 rounded-lg'; bm.textContent = 'Ava: ...';
+      chatBox.append(um, bm); chatBox.scrollTop = chatBox.scrollHeight;
+      setTimeout(() => {
+        const found = Object.entries(qaData).find(([key]) => key.toLowerCase().includes(q.toLowerCase()));
+        bm.textContent = found ? ('Arena AI: ' + found[1]) : 'Ava: Sorry, no answer found.';
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+      inp.value = '';
+    }
+  </script>
+</body>
+
+</html>
